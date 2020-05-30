@@ -1,0 +1,81 @@
+import bicis.*
+import accesorios.*
+import marcas.*
+
+test "Bici rodado 28" {
+	const mountainBike = new Bicicleta(rodado = 28, largo = 150, marca = olmo)
+	mountainBike.agregarAccesorio(farolito)
+	
+	/* ALTURA */
+	assert.equals(85, mountainBike.altura())
+	
+	/* VELOCIDAD CRUCERO */
+	assert.equals(34, mountainBike.velocidadDeCrucero())
+
+		/* CARGA */	
+	assert.equals(0, mountainBike.carga())
+	
+		/* PESO */	
+	assert.equals(14.5, mountainBike.peso())
+	
+		/* TIENE LUZ */	
+	assert.that(mountainBike.tieneLuz())
+	
+	/* ACCESORIO LIVIANO */
+	assert.equals(1, mountainBike.poseeAccesorioLiviano())
+}
+
+test "Bici rodado 26"{
+	const playera = new Bicicleta(rodado = 26, largo = 110, marca = legnano)
+	morralDeBici.largo(21)
+	morralDeBici.tieneOjoDeGato(true)
+	canasto.volumen(8)
+	
+	playera.agregarAccesorio(morralDeBici)
+	playera.agregarAccesorio(canasto)
+	playera.agregarAccesorio(farolito)
+	
+	/* ALTURA */
+	assert.equals(80, playera.altura())
+	
+	/* VELOCIDAD CRUCERO */
+	assert.equals(28, playera.velocidadDeCrucero())
+
+		/* CARGA */	
+	assert.equals(23, playera.carga())
+	
+		/* PESO */	
+	assert.equals(15.5, playera.peso())
+	
+		/* TIENE LUZ */	
+	assert.that(playera.tieneLuz())
+	
+	/* ACCESORIO LIVIANO */
+	assert.equals(2, playera.poseeAccesorioLiviano())
+}
+
+
+test "Bici rodado 20"{
+	const bmx = new Bicicleta(rodado = 20, largo = 90 , marca = legnano)
+	morralDeBici.largo(6)
+	morralDeBici.tieneOjoDeGato(false)
+	bmx.agregarAccesorio(morralDeBici)
+	
+		/* ALTURA */
+	assert.equals(65, bmx.altura())
+	
+	/* VELOCIDAD CRUCERO */
+	assert.equals(22, bmx.velocidadDeCrucero())
+
+		/* CARGA */	
+	assert.equals(2, bmx.carga())
+	
+		/* PESO */	
+	assert.equals(11.2, bmx.peso())
+	
+		/* TIENE LUZ */	
+	assert.notThat(bmx.tieneLuz())
+	
+	/* ACCESORIO LIVIANO */
+	assert.equals(0, bmx.poseeAccesorioLiviano())
+}

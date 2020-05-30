@@ -1,0 +1,148 @@
+import bicis.*
+import accesorios.*
+import marcas.*
+import depositos.*
+
+test "Deposito de 3 bicis" {	
+	
+	/* BICICLETAS  */
+	const mountainBike = new Bicicleta(rodado = 28, largo = 150, marca = olmo)
+	mountainBike.agregarAccesorio(farolito)		
+	
+	////////////////////////////////////////////////////////
+	
+	const playera = new Bicicleta(rodado = 26, largo = 110, marca = legnano)
+	morralDeBici.largo(21)
+	morralDeBici.tieneOjoDeGato(true)
+	canasto.volumen(8)
+	playera.agregarAccesorio(morralDeBici)
+	playera.agregarAccesorio(canasto)
+	playera.agregarAccesorio(farolito)
+	///////////////////////////////////////////////////////
+	
+	const bmx = new Bicicleta(rodado = 20, largo = 90 , marca = legnano)
+	morralDeBici.largo(6)
+	morralDeBici.tieneOjoDeGato(false)
+	bmx.agregarAccesorio(morralDeBici)
+	
+	/* Agregando las bicis al deposito*/
+	
+	depositoDeBicis.agregarBici(mountainBike)
+	depositoDeBicis.agregarBici(playera)
+	depositoDeBicis.agregarBici(bmx)
+
+
+	/* Bicis rapidas */
+	
+	assert.equals([mountainBike, playera],depositoDeBicis.bicisRapidas())
+
+	/* Marcas */
+	
+	assert.equals(#{olmo, legnano}, depositoDeBicis.marcasDeLasBicis())
+	
+	/* No es nocturno */
+	assert.notThat(depositoDeBicis.esNocturno())
+	
+	/* Carga 10kg */
+	
+	assert.that(depositoDeBicis.cargaExtraPeso(10))
+	
+	/* Carga 50kg */
+	
+	assert.notThat(depositoDeBicis.cargaExtraPeso(50))
+	
+	
+	/* Marca bici mas rapida */
+	
+	assert.equals(legnano,depositoDeBicis.marcaBiciMasRapida())
+	
+	
+	/* Carga total de bicis largas */
+	assert.equals(0, depositoDeBicis.cargaTotalDeBicisLargas())
+	
+}
+
+
+
+test "Deposito de 2 bicis"{
+	/* BICICLETAS  */
+	const mountainBike = new Bicicleta(rodado = 28, largo = 150, marca = olmo)
+	mountainBike.agregarAccesorio(farolito)		
+	
+	////////////////////////////////////////////////////////
+	
+	const playera = new Bicicleta(rodado = 26, largo = 110, marca = legnano)
+	morralDeBici.largo(21)
+	morralDeBici.tieneOjoDeGato(true)
+	canasto.volumen(8)
+	playera.agregarAccesorio(morralDeBici)
+	playera.agregarAccesorio(canasto)
+	playera.agregarAccesorio(farolito)
+	
+	/* Si es Nocturno */
+	
+	assert.that(depositoDeBicis.esNocturno())
+}
+
+
+test "Bici con largo de mas de 170cm - Bicis sin accesorios"{
+	
+	/* Editado el largo para el test */
+	const mountainBike = new Bicicleta(rodado = 28, largo = 190, marca = olmo)
+	mountainBike.agregarAccesorio(farolito)	// 0
+	canasto.volumen(20)
+	mountainBike.agregarAccesorio(canasto)
+	depositoDeBicis.agregarBici(mountainBike)
+		
+	const bmx = new Bicicleta(rodado = 20, largo = 180 , marca = legnano)
+	morralDeBici.largo(6)
+	morralDeBici.tieneOjoDeGato(false)
+	bmx.agregarAccesorio(morralDeBici) // 2
+
+	depositoDeBicis.agregarBici(bmx)
+	const playera = new Bicicleta(rodado = 28, largo = 160, marca = olmo)
+	depositoDeBicis.agregarBici(playera)
+	
+	const biciAMotor = new Bicicleta(rodado = 28, largo = 120, marca = olmo)
+	depositoDeBicis.agregarBici(biciAMotor)
+	
+	/* Carga total de bicis largas */
+	
+	assert.equals(42, depositoDeBicis.cargaTotalDeBicisLargas())
+	
+	
+	/* Bici sin accesorios */
+	
+	 assert.equals(2,depositoDeBicis.bicisSinAccesorios())
+}
+
+test "Bicis compañeras"{
+	/* BICICLETAS  */
+	const mountainBike = new Bicicleta(rodado = 28, largo = 115, marca = olmo)
+	mountainBike.agregarAccesorio(farolito)		
+	
+	////////////////////////////////////////////////////////
+	
+	const playera = new Bicicleta(rodado = 26, largo = 110, marca = olmo)
+	morralDeBici.largo(21)
+	morralDeBici.tieneOjoDeGato(true)
+	canasto.volumen(8)
+	playera.agregarAccesorio(morralDeBici)
+	playera.agregarAccesorio(canasto)
+	playera.agregarAccesorio(farolito)
+	///////////////////////////////////////////////////////
+	
+	const bmx = new Bicicleta(rodado = 20, largo = 90 , marca = legnano)
+	morralDeBici.largo(6)
+	morralDeBici.tieneOjoDeGato(false)
+	bmx.agregarAccesorio(morralDeBici)
+	
+	/* Agregando las bicis al deposito*/
+	
+	depositoDeBicis.agregarBici(mountainBike)
+	depositoDeBicis.agregarBici(playera)
+	depositoDeBicis.agregarBici(bmx)
+	
+	
+	assert.equals(playera,depositoDeBicis.bicisCompanierasDe_(mountainBike))
+}
